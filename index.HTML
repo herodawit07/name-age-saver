@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Name and Age Saver</title>
+</head>
+<body style="font-family: Arial; padding: 20px;">
+
+  <h1>Save Your Info</h1>
+
+  <label>Name:</label><br>
+  <input type="text" id="name"><br><br>
+
+  <label>Age:</label><br>
+  <input type="number" id="age"><br><br>
+
+  <button onclick="saveData()">Save</button>
+  <button onclick="clearData()">Clear</button>
+
+  <h2>Your Saved Info:</h2>
+  <div id="output">Nothing saved yet.</div>
+
+  <script>
+    function saveData() {
+      var name = document.getElementById("name").value;
+      var age = document.getElementById("age").value;
+
+      var user = {
+        name: name,
+        age: age
+      };
+
+      localStorage.setItem("userInfo", JSON.stringify(user));
+      showData();
+    }
+
+    function showData() {
+      var data = localStorage.getItem("userInfo");
+
+      if (data) {
+        var user = JSON.parse(data);
+        document.getElementById("output").innerHTML = "Name: " + user.name + "<br>Age: " + user.age;
+      } else {
+        document.getElementById("output").innerHTML = "Nothing saved yet.";
+      }
+    }
+
+    function clearData() {
+      localStorage.removeItem("userInfo");
+      showData();
+    }
+
+    // Show data when page loads
+    showData();
+  </script>
+
+</body>
+</html>
